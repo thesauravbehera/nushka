@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Anushka! 🎂</title>
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@200;300;400;500;600;700;800&display=swap">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Canvas for floating sparkles/hearts/petals -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Palace Background layer (fades in) -->
+  <div id="palace-bg"></div>
+
+  <!-- Hanging Garlands slide down -->
+  <div class="garland-container" id="palace-garland">
+    <div class="palace-garland-top"></div>
+  </div>
+
+  <!-- Hanging Palace Lamps -->
+  <div class="lamps-container" id="palace-lamps">
+    <div class="hanging-lamp" id="lamp-1">
+      <div class="lamp-chain"></div>
+      <div class="lamp-body"><div class="lamp-glow-pulse"></div></div>
+    </div>
+    <div class="hanging-lamp" id="lamp-2">
+      <div class="lamp-chain"></div>
+      <div class="lamp-body"><div class="lamp-glow-pulse"></div></div>
+    </div>
+    <div class="hanging-lamp" id="lamp-3">
+      <div class="lamp-chain"></div>
+      <div class="lamp-body"><div class="lamp-glow-pulse"></div></div>
+    </div>
+    <div class="hanging-lamp" id="lamp-4">
+      <div class="lamp-chain"></div>
+      <div class="lamp-body"><div class="lamp-glow-pulse"></div></div>
+    </div>
+    <div class="hanging-lamp" id="lamp-5">
+      <div class="lamp-chain"></div>
+      <div class="lamp-body"><div class="lamp-glow-pulse"></div></div>
+    </div>
+  </div>
+
+  <!-- Ambient Balloons (hidden in final steps) -->
+  <div class="balloon" style="background-color: #ff80ab; left: 8%; top: 15%; animation-delay: 0s;"></div>
+  <div class="balloon" style="background-color: #b388ff; right: 10%; top: 22%; animation-delay: 1.5s;"></div>
+  <div class="balloon" style="background-color: #82b1ff; left: 18%; bottom: 12%; animation-delay: 3s;"></div>
+  <div class="balloon" style="background-color: #ff8a80; right: 15%; bottom: 18%; animation-delay: 0.5s;"></div>
+
+  <!-- Music Player floating widget (custom audio.mp3 track) -->
+  <div class="music-player-widget" id="music-widget">
+    <div class="music-visualizer">
+      <div class="visualizer-bar"></div>
+      <div class="visualizer-bar"></div>
+      <div class="visualizer-bar"></div>
+      <div class="visualizer-bar"></div>
+      <div class="visualizer-bar"></div>
+    </div>
+    <button class="music-control-btn" id="music-toggle" aria-label="Toggle Music">
+      🎵 Play Music
+    </button>
+  </div>
+
+  <!-- Main Card Container -->
+  <main class="container" id="main-container">
+    <div class="glass-card" id="card-body">
+      
+      <!-- Step 0: PLS ACCEPT THE GIFT (Meme Flow) -->
+      <section class="step active" data-step="0">
+        <h2 class="title-main font-love text-4xl sm:text-5xl mb-4" style="color: #ff4081;">hello ANushka 🌸</h2>
+        <div class="flex gap-4 justify-center items-center mb-6 w-full max-w-xs mx-auto" style="height: 180px;">
+          <div style="width: 120px; height: 170px; border-radius: 12px; overflow: hidden; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+              <source src="images/intro1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="width: 120px; height: 170px; border-radius: 12px; overflow: hidden; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+              <source src="images/intro2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mb-6" style="color: var(--color-accent);">Ready to explore your birthday surprise? 🌸</h3>
+        
+        <div class="flex justify-center gap-6 relative w-full h-16" id="welcome-buttons-container">
+          <button onclick="acceptGiftFirst()" class="btn-premium" id="btn-accept-yes">YES</button>
+          <button class="btn-secondary" id="btn-accept-no" style="position: absolute; left: 55%;">NO</button>
+        </div>
+      </section>
+
+      <!-- Step 1: Palace Birthday Activation Sequence (Single Action Button Flow) -->
+      <section class="step" data-step="1">
+        <h2 class="font-love text-4xl sm:text-5xl mb-2" style="color: var(--color-accent);">Mughal Palace Surprise 🌸</h2>
+        <p class="text-md sm:text-lg opacity-90 max-w-md mx-auto mb-6" id="palace-status-text">
+          Welcome to your virtual birthday palace, Anushka. It looks a bit dark and quiet... Let's activate the magic one by one!
+        </p>
+        
+        <!-- Decorative Palace SVG Ornament -->
+        <div class="palace-ornament mb-6" style="margin: 20px 0;">
+          <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(255, 213, 79, 0.5)); margin: 0 auto;">
+            <!-- Outer Arch -->
+            <path d="M50 10 C35 22 25 35 25 60 L25 85 L75 85 L75 60 C75 35 65 22 50 10 Z" stroke="#ffd54f" stroke-width="2" stroke-linecap="round" fill="rgba(255, 213, 79, 0.05)"/>
+            <!-- Inner Arch details -->
+            <path d="M50 20 C40 30 32 42 32 60 L32 85" stroke="#ffd54f" stroke-width="1" stroke-dasharray="3 3"/>
+            <path d="M50 20 C60 30 68 42 68 60 L68 85" stroke="#ffd54f" stroke-width="1" stroke-dasharray="3 3"/>
+            <!-- Hanging lantern silhouette inside the arch -->
+            <line x1="50" y1="20" x2="50" y2="45" stroke="#ffd54f" stroke-width="1.5"/>
+            <!-- Lantern Frame -->
+            <path d="M43 45 L57 45 L54 62 L46 62 Z" fill="#ffb300" stroke="#ffd54f" stroke-width="1"/>
+            <!-- Glowing Flame -->
+            <path d="M50 35 C48 39 48 43 50 45 C52 43 52 39 50 35 Z" fill="#ffd54f" style="filter: drop-shadow(0 0 5px #ffd54f);"/>
+          </svg>
+        </div>
+
+        <div id="activation-btn-container">
+          <button onclick="runActivationStep()" class="btn-premium" id="palace-action-btn">
+            Light the Palace Lamps 🏮
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 2: Journey Chapter 1: The Charm of Your Presence -->
+      <section class="step" data-step="2">
+        <div class="polaroid-stack mb-6">
+          <div class="stacked-polaroid p-left">
+            <img src="images/img_1252.webp" alt="Anushka Black Dress 1">
+          </div>
+          <div class="stacked-polaroid p-right">
+            <img src="images/img_1251.webp" alt="Anushka Black Dress 2">
+          </div>
+        </div>
+        <div class="journey-quote">
+          <p class="english-quote" style="font-size: 1.1rem; font-weight: 500; color: var(--color-accent); margin-bottom: 8px;">A Quiet Grace 🌸</p>
+          <p class="english-quote">Your presence has this calming, soft energy that makes even the most chaotic days feel peaceful. There's a quiet grace in the way you carry yourself, Anushka...</p>
+        </div>
+        <button onclick="nextStep()" class="btn-premium" style="margin-top: 15px;">Next Moment ➡️</button>
+      </section>
+
+      <!-- Step 3: Journey Chapter 2: The Warmth of Your Smile -->
+      <section class="step" data-step="3">
+        <div class="polaroid-stack mb-6">
+          <div class="stacked-polaroid p-left" style="transform: rotate(-5deg) translateX(-10px);">
+            <img src="images/img_1196.webp" alt="Anushka Smile 1">
+          </div>
+          <div class="stacked-polaroid p-right" style="transform: rotate(6deg) translateX(10px);">
+            <img src="images/img_1208.webp" alt="Anushka Smile 2">
+          </div>
+        </div>
+        <div class="journey-quote">
+          <p class="english-quote" style="font-size: 1.1rem; font-weight: 500; color: var(--color-accent); margin-bottom: 8px;">Your Beautiful Smile ✨</p>
+          <p class="english-quote">Your smile is my absolute favorite view in the world. It is soft, genuine, and instantly brightens up everything around you. Never let the world take that away...</p>
+        </div>
+        <button onclick="nextStep()" class="btn-premium" style="margin-top: 15px;">Next Moment ➡️</button>
+      </section>
+
+      <!-- Step 4: Journey Chapter 3: The Depths of Your Thoughts -->
+      <section class="step" data-step="4">
+        <div class="polaroid-stack mb-6">
+          <div class="stacked-polaroid p-left" style="transform: rotate(-7deg) translateX(-12px);">
+            <img src="images/img_1190.webp" alt="Anushka Thoughts 1">
+          </div>
+          <div class="stacked-polaroid p-right" style="transform: rotate(5deg) translateX(12px);">
+            <img src="images/img_1198.webp" alt="Anushka Thoughts 2">
+          </div>
+        </div>
+        <div class="journey-quote">
+          <p class="english-quote" style="font-size: 1.1rem; font-weight: 500; color: var(--color-accent); margin-bottom: 8px;">Serenity in Your Eyes 🥺</p>
+          <p class="english-quote">Looking at you lost in your thoughts is a memory I hold dear. You have this depth, this beautiful mind that sees the world with kindness and care...</p>
+        </div>
+        <button onclick="nextStep()" class="btn-premium" style="margin-top: 15px;">Next Moment ➡️</button>
+      </section>
+
+      <!-- Step 5: Journey Chapter 4: The Breathtaking Moments -->
+      <section class="step" data-step="5">
+        <div class="polaroid-stack mb-6" style="height: 180px; justify-content: center; display: flex; gap: 8px;">
+          <div class="stacked-polaroid" style="transform: rotate(-6deg) translateX(-15px) scale(0.95); width: 110px;">
+            <img src="images/img_1216.webp" alt="Anushka Breathtaking 1">
+          </div>
+          <div class="stacked-polaroid" style="transform: rotate(2deg) scale(1.05); width: 110px; z-index: 10;">
+            <img src="images/insta1.webp" alt="Anushka Breathtaking 2">
+          </div>
+          <div class="stacked-polaroid" style="transform: rotate(5deg) translateX(15px) scale(0.95); width: 110px;">
+            <img src="images/insta2.webp" alt="Anushka Breathtaking 3">
+          </div>
+        </div>
+        <div class="journey-quote">
+          <p class="english-quote" style="font-size: 1.1rem; font-weight: 500; color: var(--color-accent); margin-bottom: 8px;">A Serene Melody 💫</p>
+          <p class="english-quote">In a world full of noise, you are my serene melody. From the simplest conversations to the quietest moments, every second spent knowing you is breathtaking...</p>
+        </div>
+        <button onclick="nextStep()" class="btn-premium" style="margin-top: 15px;">Next Moment ➡️</button>
+      </section>
+
+      <!-- Step 6: Journey Chapter 5: Together in Time -->
+      <section class="step" data-step="6">
+        <div class="polaroid-stack mb-6" style="height: 180px; justify-content: center; display: flex; gap: 8px;">
+          <div class="stacked-polaroid" style="transform: rotate(-5deg) translateX(-15px) scale(0.95); width: 110px;">
+            <img src="images/insta3.webp" alt="Anushka Memory 1">
+          </div>
+          <div class="stacked-polaroid" style="transform: rotate(1deg) scale(1.05); width: 110px; z-index: 10;">
+            <img src="images/insta4.webp" alt="Anushka Memory 2">
+          </div>
+          <div class="stacked-polaroid" style="transform: rotate(6deg) translateX(15px) scale(0.95); width: 110px;">
+            <img src="images/insta5.webp" alt="Anushka Memory 3">
+          </div>
+        </div>
+        <div class="journey-quote">
+          <p class="english-quote" style="font-size: 1.1rem; font-weight: 500; color: var(--color-accent); margin-bottom: 8px;">Memories We Cherish ❤️</p>
+          <p class="english-quote">A collection of screens, laughs, and little stories. Here's to making many more memories, Anushka, hand in hand, through all of life's seasons...</p>
+        </div>
+        <button onclick="nextStep()" class="btn-premium" style="margin-top: 15px;">Unwrap Wishes 💝</button>
+      </section>
+
+      <!-- Step 7: Make a Wish (Cake and Candle) -->
+      <section class="step" data-step="7">
+        <h2 class="font-love text-4xl sm:text-5xl mb-2" style="color: var(--color-accent);">Make a Wish, Anushka</h2>
+        <p class="mb-6 opacity-90">Blow into your microphone, or tap the candle flame to blow it out!</p>
+        
+        <div class="cake-wrapper">
+          <div class="smoke" id="candle-smoke"></div>
+          <div class="candle-flame" id="candle-flame"></div>
+          <div class="cake-candle"></div>
+          <div class="cake-tier">
+            <div class="cake-drip"></div>
+            <div class="cake-frosting"></div>
+          </div>
+          <div class="cake-stand"></div>
+        </div>
+
+        <!-- Microphone control panel -->
+        <div class="mic-status-container">
+          <button class="mic-btn" id="mic-toggle-btn">
+            🎙️ Enable Microphone Blow
+          </button>
+          <div class="mic-indicator-bar" id="mic-bar" style="display: none;">
+            <div class="mic-indicator-fill" id="mic-fill"></div>
+          </div>
+        </div>
+
+        <button onclick="blowCandle()" class="btn-premium" style="margin-top: 15px;">
+          Blow Candle 🕯️
+        </button>
+      </section>
+
+      <!-- Step 8: Draggable Scrapbook and Final Wishes Card -->
+      <section class="step" data-step="8" style="height: 100%; width: 100%;">
+        <div class="final-wish-header">
+          <p class="uppercase tracking-[0.25em] text-xs mb-1" style="color: var(--color-accent); font-weight: 500;">Final Message</p>
+          <h2 class="font-love text-4xl sm:text-5xl mb-2">Happy Birthday Anushka! 🎂</h2>
+        </div>
+
+        <div class="final-card-container">
+          <p>
+            On your special day, I just want to say that you, Anushka, are one of the most beautiful blessings in my life. Your smile makes my world softer, your presence makes my heart peaceful, and your love makes every day feel special.
+          </p>
+          <p>
+            May Allah bless you with endless happiness, health, success, love, and every dream your heart silently prays for. I am so lucky to have you. ❤️
+          </p>
+        </div>
+
+        <button onclick="restartWish()" class="btn-secondary" style="margin-top: 15px; margin-bottom: 25px; z-index: 100;">
+          Replay Magic ✨
+        </button>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- How Dare You Modal Overlay (Gun Cat Meme) -->
+  <div id="gun-modal" class="fullscreen-modal" style="display: none;">
+    <div class="glass-card max-w-md p-8 text-center" style="min-height: auto;">
+      <h2 class="font-love text-4xl mb-4" style="color: #f50057;">HOW DARE YOU!</h2>
+      <img src="images/meme_gun.webp" alt="Cat with Gun Meme" class="modal-meme-img mb-6">
+      <p class="text-md mb-6">You really tried to click NO? 🥺 Think again!</p>
+      <button onclick="closeGunModal()" class="btn-premium">TRY AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Funny Meme floating feedback popups -->
+  <div id="meme-feedback-popup" class="floating-meme-popup" style="display: none;">
+    <img id="feedback-meme-img" src="" alt="Meme feedback">
+    <p id="feedback-meme-text"></p>
+  </div>
+
+  <!-- Step 8 Draggable Scrapbook - Fullscreen desk wrapper for paper scraps -->
+  <!-- Overlays behind/around the card during Step 8 for absolute interactivity! -->
+  <div id="scrapbook-desk" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none;">
+    
+    <!-- Draggable Paper Heart -->
+    <div class="paper heart" style="pointer-events: auto;"></div>
+    
+    <!-- Draggable Polaroids containing Anushka's 12 images -->
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Absolute stunner! 🖤</p>
+      <img src="images/img_1252.webp" alt="Anushka 1252" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Looking gorgeous! 😍</p>
+      <img src="images/img_1251.webp" alt="Anushka 1251" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Love this aesthetic vibe! ✨</p>
+      <img src="images/img_1190.webp" alt="Anushka 1190" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>My favorite smile! 🌸</p>
+      <img src="images/img_1196.webp" alt="Anushka 1196" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Look at those eyes! 🥺💖</p>
+      <img src="images/img_1198.webp" alt="Anushka 1198" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Too cute to handle! 🥰</p>
+      <img src="images/img_1208.webp" alt="Anushka 1208" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Simply breathtaking! 🌟</p>
+      <img src="images/img_1216.webp" alt="Anushka 1216" />
+    </div>
+
+    <!-- Instagram screenshots -->
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Look at this perfect moment! ✨</p>
+      <img src="images/insta1.webp" alt="Anushka Insta 1" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>A beautiful memory of us 🥺❤️</p>
+      <img src="images/insta2.webp" alt="Anushka Insta 2" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Living my best life with you! 🥰</p>
+      <img src="images/insta3.webp" alt="Anushka Insta 3" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Capturing your prettiest angles! 📸💖</p>
+      <img src="images/insta4.webp" alt="Anushka Insta 4" />
+    </div>
+
+    <div class="paper image" style="pointer-events: auto;">
+      <p>Always bringing joy to my life 💫🌸</p>
+      <img src="images/insta5.webp" alt="Anushka Insta 5" />
+    </div>
+
+    <!-- Draggable Note Cards -->
+    <div class="paper red" style="pointer-events: auto;">
+      <p class="p1">Anushka, you are my favorite</p>
+      <p class="p2" style="color: #b71c1c;">person in the whole universe 🌎❤️</p>
+    </div>
+
+    <div class="paper" style="pointer-events: auto;">
+      <p class="p1">Cute & Amazing</p>
+      <p class="p1" style="color: #f50057;">in every single way 💫</p>
+    </div>
+
+    <div class="paper" style="pointer-events: auto; z-index: 100;">
+      <p class="p1">Drag the papers to move!</p>
+      <p class="p2" style="font-size: 1.1rem; color: #666; margin-top: 5px;">Scatter our memories on the desk 🌸</p>
+    </div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>

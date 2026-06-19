@@ -1,0 +1,6 @@
+# Ignore raw downloaded Instagram folder (unreferenced by codebase)
+Instaimages/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
