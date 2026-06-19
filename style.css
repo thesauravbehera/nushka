@@ -1474,5 +1474,84 @@ body {
   background-color: rgba(212, 175, 55, 0.6) !important; /* Gold washi tape */
 }
 
+/* Cut-out Letter collage Title styling */
+.collage-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 25px;
+}
+
+.letter {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 3px;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.4);
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.letter:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  z-index: 10;
+}
+
+.letter-space {
+  width: 15px;
+}
+
+/* Sticker collage border style */
+.paper.image {
+  background: white !important;
+  border: 6px solid white !important; /* Sticker border */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.paper.image img {
+  border-radius: 2px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Repeating watermark text meow background style */
+.meow-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  pointer-events: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ff4081;
+  overflow: hidden;
+  line-height: 1.7;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  padding: 10px;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .letter {
+    font-size: 1.6rem;
+    padding: 4px 8px;
+    margin: 2px;
+  }
+  .letter-space {
+    width: 8px;
+  }
+}
+
 
 

@@ -362,6 +362,19 @@ function showStep(index) {
     
     // Hide standard backgrounds, show scrapbook table
     scrapbookDesk.style.display = 'block';
+
+    // Inject the meow overlay if not already injected
+    if (!document.querySelector('.meow-bg-overlay')) {
+      const meowOverlay = document.createElement('div');
+      meowOverlay.className = 'meow-bg-overlay';
+      let meows = '';
+      for (let i = 0; i < 600; i++) {
+        meows += 'MEOW ';
+      }
+      meowOverlay.textContent = meows;
+      scrapbookDesk.appendChild(meowOverlay);
+    }
+
     setTimeout(() => {
       scrapbookDesk.style.opacity = '1';
       distributePapers();
