@@ -228,10 +228,10 @@ function showMemeFeedback(btnX, btnY) {
   
   const stepVal = (noAttempts - 1) % 3;
   if (stepVal === 0) {
-    imgPath = 'images/meme_loading.webp';
-    msg = "Brain loading... why would you click NO? 🧠";
+    imgPath = 'images/meme_accept.webp';
+    msg = "Please accept the gift? 🥺";
   } else if (stepVal === 1) {
-    imgPath = 'images/meme_stop.webp';
+    imgPath = 'images/meme_yell.webp';
     msg = "Hey, stop that right now! 🛑";
   } else {
     imgPath = 'images/meme_yell.webp';
