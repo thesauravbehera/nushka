@@ -352,7 +352,9 @@ function showStep(index) {
   steps.forEach(step => step.classList.remove('active'));
   
   // Custom step configurations
-  if (index === 8) {
+  const stepElement = steps[index];
+  const stepId = stepElement ? stepElement.getAttribute('data-step') : null;
+  if (stepId === '7') {
     // Scrapbook Desk reveal!
     cardBody.style.pointerEvents = 'none';
     cardBody.style.background = 'rgba(255, 255, 255, 0.02)';
@@ -744,7 +746,7 @@ function restartWish() {
   });
   
   palaceActionBtn.textContent = "Light the Palace Lamps 🏮";
-  palaceStatusText.textContent = "Welcome to your virtual birthday palace, Anushka. It looks a bit dark and quiet... Let's activate the magic one by one!";
+  palaceStatusText.textContent = "Welcome to your virtual birthday palace, Sandali. It looks a bit dark and quiet... Let's activate the magic one by one!";
   
   // Reinitialize normal floating particles
   particles = [];
@@ -755,3 +757,113 @@ function restartWish() {
   // Go to step 0
   showStep(0);
 }
+
+// ==========================================
+// 11. 3D Tilt Card Motion (Desktop & Mobile)
+// ==========================================
+function init3DTilt() {
+  const cards = document.querySelectorAll('.glass-card, .paper.image, .final-card-container');
+  
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Calculate rotation angles (max 12 degrees)
+      const rotateX = ((centerY - y) / centerY) * 12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+    
+    // Mobile Touch interaction
+    card.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1) {
+        const rect = card.getBoundingClientRect();
+        const x = e.touches[0].clientX - rect.left;
+        const y = e.touches[0].clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((centerY - y) / centerY) * 8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+      }
+    }, { passive: true });
+    
+    card.addEventListener('touchend', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  });
+}
+
+// ==========================================
+// 12. Forehead Girl Interactive Mechanics
+// ==========================================
+function initForeheadGirl() {
+  const wrappers = document.querySelectorAll('.forehead-girl-wrapper');
+  
+  wrappers.forEach(wrapper => {
+    const head = wrapper.querySelector('.forehead-girl');
+    
+    // Head follows mouse slightly
+    wrapper.addEventListener('mousemove', (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((centerY - y) / centerY) * 15;
+      const rotateY = ((x - centerX) / centerX) * 15;
+      
+      head.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    wrapper.addEventListener('mouseleave', () => {
+      head.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+    
+    // Spawn sparkles on click
+    wrapper.addEventListener('click', (e) => {
+      const emojis = ['✨', '⭐', '💖', '💡', '🌟', '💥'];
+      
+      // Spawn 8 sparkles around the click point
+      for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement('span');
+        sparkle.className = 'fg-sparkle';
+        sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Random horizontal travel offset
+        const tx = Math.floor(Math.random() * 80 - 40);
+        sparkle.style.setProperty('--tx', `${tx}px`);
+        
+        // Position sparkle at click position
+        sparkle.style.left = `${e.clientX}px`;
+        sparkle.style.top = `${e.clientY}px`;
+        
+        document.body.appendChild(sparkle);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1100);
+      }
+    });
+  });
+}
+
+// Initialize Interactive Mechanics
+init3DTilt();
+initForeheadGirl();
+

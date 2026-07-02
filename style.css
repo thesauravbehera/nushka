@@ -1009,8 +1009,8 @@ body {
 /* Draggable Papers Scrapbook Styles */
 #scrapbook-desk {
   background-color: var(--color-bg-start);
-  background-image: linear-gradient(135deg, rgba(15, 0, 20, 0.95), rgba(61, 5, 69, 0.9)), 
-                    url("images/decor3.webp");
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 213, 79, 0.15), transparent 60%),
+                    linear-gradient(135deg, rgba(15, 0, 20, 0.95), rgba(61, 5, 69, 0.9));
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -1328,7 +1328,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("images/decor2.webp");
+  background: radial-gradient(circle at 50% 30%, rgba(121, 9, 133, 0.6) 0%, rgba(25, 0, 36, 0.95) 100%),
+              linear-gradient(180deg, #15001a 0%, #0a000d 100%);
   background-size: cover;
   background-position: center;
   opacity: 0;
@@ -1432,10 +1433,10 @@ body {
 .palace-garland-top {
   width: 100%;
   height: 100%;
-  background-image: url("images/decor2.webp");
-  background-size: 100% auto;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40"><path d="M 0,0 Q 30,30 60,0 Q 90,30 120,0" fill="none" stroke="%23ffd54f" stroke-width="2"/><circle cx="15" cy="11" r="5" fill="%23ff4081"/><circle cx="30" cy="15" r="5" fill="%23ffd54f"/><circle cx="45" cy="11" r="5" fill="%23ff4081"/><circle cx="60" cy="0" r="6" fill="%23e040fb"/><circle cx="75" cy="11" r="5" fill="%23ff4081"/><circle cx="90" cy="15" r="5" fill="%23ffd54f"/><circle cx="105" cy="11" r="5" fill="%23ff4081"/><circle cx="120" cy="0" r="6" fill="%23e040fb"/></svg>');
+  background-size: 120px auto;
   background-position: top center;
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
   opacity: 0.95;
 }
 
@@ -1553,5 +1554,221 @@ body {
   }
 }
 
+/* 3D tilt perspective settings for glass card and draggable polaroid elements */
+.glass-card, .paper {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
 
+/* Draggable papers custom styles for monkey and chihuahua */
+.paper.monkey-sticker {
+  width: 140px;
+  height: 160px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: grab;
+}
+.paper.monkey-sticker img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+}
+.paper.chihuahua-sticker {
+  width: 130px;
+  height: 150px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: grab;
+}
+.paper.chihuahua-sticker img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+}
 
+/* Forehead Girl Cartoon Character CSS */
+.forehead-girl-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 15px auto;
+  perspective: 800px;
+  cursor: pointer;
+  z-index: 100;
+}
+.forehead-girl {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+}
+.fg-head {
+  width: 120px;
+  height: 120px;
+  background: #ffe3cb;
+  border-radius: 50%;
+  border: 4px solid #6b4021;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset -5px -5px 12px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+/* Large shining forehead highlight */
+.fg-forehead-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%);
+}
+.fg-sheen {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 70%);
+  transform: rotate(45deg);
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+.forehead-girl-wrapper:hover .fg-sheen {
+  top: 50%;
+  left: 50%;
+}
+/* Eyes styling */
+.fg-eyes-container {
+  position: absolute;
+  top: 52%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+.fg-eye {
+  width: 13px;
+  height: 13px;
+  background: #4e2912;
+  border-radius: 50%;
+  position: relative;
+  animation: fg-blink 4s infinite;
+}
+.fg-eye::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+}
+@keyframes fg-blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+/* Blushing Cheeks styling */
+.fg-blush-container {
+  position: absolute;
+  top: 64%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+  opacity: 0.65;
+  transition: opacity 0.3s;
+}
+.forehead-girl-wrapper:hover .fg-blush-container {
+  opacity: 0.95;
+}
+.fg-blush {
+  width: 20px;
+  height: 11px;
+  background: #ff80ab;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+/* Smiling Mouth */
+.fg-mouth {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 13px;
+  border-bottom: 3.5px solid #6b4021;
+  border-radius: 0 0 13px 13px;
+  transition: 0.2s ease;
+}
+.forehead-girl-wrapper:hover .fg-mouth {
+  height: 18px;
+  border-radius: 0 0 18px 18px;
+  background: #ff80ab;
+}
+/* Forehead Sparkle Animation */
+.fg-sparkle {
+  position: absolute;
+  pointer-events: none;
+  animation: fg-float-sparkle 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  font-size: 1.4rem;
+  z-index: 2010;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+@keyframes fg-float-sparkle {
+  0% { transform: translateY(0) scale(0.4) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-90px) translateX(var(--tx)) scale(1.3) rotate(360deg); opacity: 0; }
+}
+
+/* Creamy, Juicy floating blob elements for last slide background */
+.scrapbook-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: 2;
+  opacity: 0.12;
+  pointer-events: none;
+  animation: float-blobs 12s infinite alternate ease-in-out;
+}
+@keyframes float-blobs {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(45px, 55px) scale(1.2); }
+}
+
+/* Custom background card utilizing donkey party frame */
+.final-card-container.donkey-theme {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9)), 
+                    url("images/donkey_party.jpg");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  color: #2e1c0c !important;
+  font-weight: 500;
+  padding: 30px 25px 95px 25px !important; /* Larger padding at bottom for donkeys graphics */
+  text-shadow: none !important;
+  transform-style: preserve-3d;
+}
+.final-card-container.donkey-theme p {
+  color: #2e1c0c !important;
+}
+
+/* Global cinematic vignette for a subtle black screen frame effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,0,0,0) 65%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 9999;
+}
