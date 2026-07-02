@@ -646,30 +646,156 @@ function distributePapers() {
   const height = window.innerHeight;
   const isMobile = width < 600;
 
-  paperElements.forEach((paper, index) => {
-    const dp = draggablePapers[index];
+  // Separate papers by type or class
+  const polaroids = [];
+  const stickers = [];
+  const notes = [];
+  const memes = [];
+  let heart = null;
+  let instructions = null;
+
+  paperElements.forEach((paper) => {
+    if (paper.classList.contains('heart')) {
+      heart = paper;
+    } else if (paper.classList.contains('monkey-sticker') || paper.classList.contains('chihuahua-sticker') || (paper.querySelector('.forehead-girl-wrapper') && !paper.classList.contains('image'))) {
+      stickers.push(paper);
+    } else if (paper.classList.contains('red') || (paper.classList.contains('paper') && !paper.classList.contains('image') && !paper.classList.contains('heart') && !paper.querySelector('.forehead-girl-wrapper') && !paper.style.zIndex)) {
+      if (paper.querySelector('.p2') && paper.querySelector('.p2').textContent.includes('Scatter')) {
+        instructions = paper;
+      } else {
+        notes.push(paper);
+      }
+    } else if (paper.classList.contains('image')) {
+      const img = paper.querySelector('img');
+      const src = img ? img.getAttribute('src') : '';
+      if (src.includes('IMG_') || src.includes('SAVE_')) {
+        polaroids.push(paper);
+      } else {
+        memes.push(paper);
+      }
+    }
+  });
+
+  // Position Polaroids (Sandali's photos): fan out on left and right sides
+  polaroids.forEach((paper, idx) => {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(paper)];
+    if (!dp) return;
     
-    // Distribute them in random, scattered layouts
+    const side = idx % 2 === 0 ? -1 : 1; 
+    const step = Math.floor(idx / 2); 
+    
     let targetX = 0;
     let targetY = 0;
-    
     if (isMobile) {
-      // Stack them primarily in the lower screen space
-      targetX = (Math.random() * (width - 160)) - (width / 2) + 80;
-      targetY = (Math.random() * (height - 320)) - (height / 2) + 180;
+      targetX = side * (width * 0.28);
+      targetY = (step - 1.5) * (height * 0.18) + 50;
     } else {
-      // Scatter nicely across wide viewports
-      targetX = (Math.random() * (width - 320)) - (width / 2) + 160;
-      targetY = (Math.random() * (height - 350)) - (height / 2) + 160;
+      targetX = side * (width * 0.35);
+      targetY = (step - 1.5) * (height * 0.2) + 20;
     }
     
-    // Set variables
     dp.currentPaperX = targetX;
     dp.currentPaperY = targetY;
-    dp.rotation = Math.random() * 30 - 15;
+    dp.rotation = side * (10 + step * 5); 
     dp.liftPaper();
     dp.updatePosition();
   });
+
+  // Position Draggable Stickers (Monkey, Chihuahua, Forehead Girl)
+  stickers.forEach((paper, idx) => {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(paper)];
+    if (!dp) return;
+    
+    let targetX = 0;
+    let targetY = 0;
+    if (isMobile) {
+      targetX = (idx - 1) * (width * 0.28);
+      targetY = height * 0.28;
+    } else {
+      const positions = [
+        { x: -width * 0.35, y: -height * 0.3 }, 
+        { x: width * 0.35, y: -height * 0.3 },  
+        { x: -width * 0.35, y: height * 0.35 }  
+      ];
+      const pos = positions[idx % positions.length];
+      targetX = pos.x;
+      targetY = pos.y;
+    }
+    
+    dp.currentPaperX = targetX;
+    dp.currentPaperY = targetY;
+    dp.rotation = Math.random() * 20 - 10;
+    dp.liftPaper();
+    dp.updatePosition();
+  });
+
+  // Position Draggable Memes
+  memes.forEach((paper, idx) => {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(paper)];
+    if (!dp) return;
+    
+    let targetX = 0;
+    let targetY = 0;
+    if (isMobile) {
+      targetX = (idx - 2) * (width * 0.16);
+      targetY = height * 0.38;
+    } else {
+      targetX = (idx - 2) * (width * 0.15);
+      targetY = height * 0.38;
+    }
+    
+    dp.currentPaperX = targetX;
+    dp.currentPaperY = targetY;
+    dp.rotation = (idx - 2) * 6; 
+    dp.liftPaper();
+    dp.updatePosition();
+  });
+
+  // Position Draggable Note Cards
+  notes.forEach((paper, idx) => {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(paper)];
+    if (!dp) return;
+    
+    let targetX = 0;
+    let targetY = 0;
+    if (isMobile) {
+      targetX = idx === 0 ? -width * 0.2 : width * 0.2;
+      targetY = -height * 0.28;
+    } else {
+      targetX = (idx === 0 ? -1 : 1) * (width * 0.18);
+      targetY = -height * 0.35;
+    }
+    
+    dp.currentPaperX = targetX;
+    dp.currentPaperY = targetY;
+    dp.rotation = Math.random() * 12 - 6;
+    dp.liftPaper();
+    dp.updatePosition();
+  });
+
+  // Position Heart sticker
+  if (heart) {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(heart)];
+    if (dp) {
+      dp.currentPaperX = 0;
+      dp.currentPaperY = isMobile ? -height * 0.38 : -height * 0.4;
+      dp.rotation = 0;
+      dp.liftPaper();
+      dp.updatePosition();
+    }
+  }
+
+  // Position Instructions card
+  if (instructions) {
+    const dp = draggablePapers[Array.from(paperElements).indexOf(instructions)];
+    if (dp) {
+      dp.currentPaperX = 0;
+      dp.currentPaperY = isMobile ? height * 0.18 : height * 0.22;
+      dp.rotation = 0;
+      dp.liftPaper();
+      dp.updatePosition();
+    }
+  }
 }
 
 
